@@ -191,7 +191,7 @@ public class Frequencer implements FrequencerInterface{
 		}
 		
 	}
-    return 0;
+	return 0;
     }
 
 
@@ -255,11 +255,11 @@ public class Frequencer implements FrequencerInterface{
         // Assuming the suffix array is created from "Hi Ho Hi Ho",          
         // if target_start_end is"i", it will return 9 for "Hi Ho Hi Ho".    
         //                                                                   
-        //　ここにコードを記述せよ        
-	for(int n=0; n<suffixArray.length-1; n++){
+        //　ここにコードを記述せよ
+	int findex = subByteStartIndex(start, end);
+	for(int n=findex; n<suffixArray.length-1; n++){
 			int a = targetCompare(suffixArray[n],start,end);
-			int b = targetCompare(suffixArray[n+1],start,end);
-			if(a==0 && b!=0){
+			if(a!=0){
 				return n+1;
 			}
 		
@@ -317,4 +317,3 @@ public class Frequencer implements FrequencerInterface{
         }
     }
 }
-

@@ -1,6 +1,7 @@
 package s4.B193301; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
 import java.lang.*;
 import s4.specification.*;
+import java.util.HashMap;
 
 /* What is imported from s4.specification
 package s4.specification;
@@ -41,6 +42,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 
     public double estimation(){
+	HashMap<String,Double> map = new HashMap<>();
 	boolean [] partition = new boolean[myTarget.length+1];
 	int np;
 	np = 1<<(myTarget.length-1);
@@ -61,28 +63,41 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	    // Compute Information Quantity for the partition, in "value1"
 	    // value1 = IQ(#"ab")+IQ(#"cde")+IQ(#"fg") for the above example
             double value1 = (double) 0.0;
-	    int end = 0;;
+	    int end = 0;
 	    int start = end;
 	    while(start<myTarget.length) {
-		// System.out.write(myTarget[end]);
+		//System.out.println("("+start+","+end+")");
+		 //System.out.write(myTarget[end]);
 		end++;;
 		while(partition[end] == false) { 
-		    // System.out.write(myTarget[end]);
+		     //System.out.write(myTarget[end]);
 		    end++;
 		}
-		// System.out.print("("+start+","+end+")");
+		//System.out.println("("+start+","+end+")");
 		myFrequencer.setTarget(subBytes(myTarget, start, end));
-		value1 = value1 + iq(myFrequencer.frequency());
+		String key = new String(subBytes(myTarget, start, end));
+		if(!map.containsKey(key)){
+			map.put(key, iq(myFrequencer.frequency()));
+		}
+		value1 = value1 + map.get(key);
 		start = end;
 	    }
-	    // System.out.println(" "+ value1);
+	     //System.out.println(" "+ value1);
 
 	    // Get the minimal value in "value"
 	    if(value1 < value) value = value1;
 	}
 	return value;
     }
-
+/*    public double s(int num){
+	boolean z[] = new boolean[100];
+	double x[] = new double[100];
+	if(!z[num]){
+		x[num] = iq(num);
+		z[num] = true;
+	}
+	return x[num];
+    }*/
     public static void main(String[] args) {
 	InformationEstimator myObject;
 	double value;
@@ -103,7 +118,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
     }
 }
 				  
-			       
+				       
 
 	
     
