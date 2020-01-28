@@ -84,6 +84,24 @@ public class Frequencer implements FrequencerInterface{
         }
         //                                            
         // ここに、int suffixArrayをソートするコードを書け。
+	//処理時間：406963 ns
+	int h = suffixArray.length / 2;
+
+        while(h > 0){
+            for(int i=h; i < suffixArray.length; i++){
+                int j = i;
+                while(j >= h && suffixCompare(suffixArray[j],suffixArray[j-h])==1){
+                    int tmp = suffixArray[j];
+                    suffixArray[j] = suffixArray[j-h];
+                    suffixArray[j-h] = tmp;
+                    j --;
+                }
+            }
+            h /= 2;
+        }
+	
+        /*
+	//処理時間：550495 ns
 	for(int n=0; n<suffixArray.length-1; n++){
 		for(int m=suffixArray.length-1;m>n;m--){
 			int a = suffixCompare(suffixArray[m],suffixArray[m-1]);
@@ -94,8 +112,12 @@ public class Frequencer implements FrequencerInterface{
 			}
 		}
 	}
+	*/
+	
         // 　順番はsuffixCompareで定義されるものとする。    
     }
+
+
 
     // Suffix Arrayを用いて、文字列の頻度を求めるコード
     // ここから、指定する範囲のコードは変更してはならない。
@@ -259,6 +281,7 @@ public class Frequencer implements FrequencerInterface{
     // 減点の対象である。
     public static void main(String[] args) {
         Frequencer frequencerObject;
+	long startTime = System.nanoTime();
         try {
             frequencerObject = new Frequencer();
             frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
@@ -283,8 +306,10 @@ public class Frequencer implements FrequencerInterface{
             //
 
             int result = frequencerObject.frequency();
+	    long endTime = System.nanoTime();
             System.out.print("Freq = "+ result+" ");
             if(4 == result) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	    System.out.println("処理時間：" + (endTime - startTime) + " ns");
         }
         catch(Exception e) {
             e.printStackTrace();
