@@ -77,7 +77,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 		myFrequencer.setTarget(subBytes(myTarget, start, end));
 		String key = new String(subBytes(myTarget, start, end));
 		if(!map.containsKey(key)){
-			map.put(key, iq(myFrequencer.frequency()));
+		    map.put(key, iq(myFrequencer.frequency()));
 		}
 		value1 = value1 + map.get(key);
 		start = end;
@@ -89,15 +89,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	}
 	return value;
     }
-/*    public double s(int num){
-	boolean z[] = new boolean[100];
-	double x[] = new double[100];
-	if(!z[num]){
-		x[num] = iq(num);
-		z[num] = true;
-	}
-	return x[num];
-    }*/
+
     public static void main(String[] args) {
 	InformationEstimator myObject;
 	double value;

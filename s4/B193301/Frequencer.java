@@ -100,20 +100,6 @@ public class Frequencer implements FrequencerInterface{
             h /= 2;
         }
 	
-        /*
-	//処理時間：550495 ns
-	for(int n=0; n<suffixArray.length-1; n++){
-		for(int m=suffixArray.length-1;m>n;m--){
-			int a = suffixCompare(suffixArray[m],suffixArray[m-1]);
-			if(a==1){
-				int tmp = suffixArray[m-1];
-				suffixArray[m-1]=suffixArray[m];
-				suffixArray[m]=tmp;
-			}
-		}
-	}
-	*/
-	
         // 　順番はsuffixCompareで定義されるものとする。    
     }
 
@@ -178,7 +164,7 @@ public class Frequencer implements FrequencerInterface{
         // ここに比較のコードを書け 
         //
 	int length=Math.min(mySpace.length-i,k-j);
-	if(mySpace.length-i<k-j+1){
+	if(mySpace.length-i<k-j){
 		return -1;
 	}
 	
@@ -220,13 +206,13 @@ public class Frequencer implements FrequencerInterface{
         // if target_start_end is "Ho ", it will return 6.                
         //                                                                          
         // ここにコードを記述せよ。     
-	for(int n=0; n<suffixArray.length-1; n++){
+	for(int n=0; n<suffixArray.length; n++){
 			int a = targetCompare(suffixArray[n],start,end);
-			if(a==0){
+			if(a>=0){
 				return n;
 			}
 	}
-	return 0;
+	return suffixArray.length;
 	}                                 
         //                                                                         
         //このコードは変更しなければならない。          
@@ -257,15 +243,15 @@ public class Frequencer implements FrequencerInterface{
         //                                                                   
         //　ここにコードを記述せよ
 	int findex = subByteStartIndex(start, end);
-	for(int n=findex; n<suffixArray.length-1; n++){
+	for(int n=findex; n<suffixArray.length; n++){
 			int a = targetCompare(suffixArray[n],start,end);
-			if(a!=0){
-				return n+1;
+			if(a==1){
+				return n;
 			}
 		
 	}                                    
         //                                                                   
-    return 0;     // この行は変更しなければならない、       
+    return suffixArray.length;     // この行は変更しなければならない、       
     }
 
 
