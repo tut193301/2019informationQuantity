@@ -74,9 +74,10 @@ public class InformationEstimator implements InformationEstimatorInterface{
 		    end++;
 		}
 		//System.out.println("("+start+","+end+")");
-		myFrequencer.setTarget(subBytes(myTarget, start, end));
+		//myFrequencer.setTarget(subBytes(myTarget, start, end));
 		String key = new String(subBytes(myTarget, start, end));
 		if(!map.containsKey(key)){
+		    myFrequencer.setTarget(subBytes(myTarget, start, end));
 		    map.put(key, iq(myFrequencer.frequency()));
 		}
 		value1 = value1 + map.get(key);
